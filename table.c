@@ -137,75 +137,7 @@ void  FILTRER_LES_TACHES(){
 			}
 		}
 	} 
-// Cette fonction trie le tableau A en fonction du choix 6.	
-	void TRIER_LES_TACHES(){
-		char ordre[20];
-		int i,j;
-		printf("Il y a deux possibilites pour trier le tableau des taches : ordre croissant ou 2-ordre decroissant");
-		//le choix de l'ordre 
-		printf("\nentrez l'ordre : ");
-		scanf("%s",ordre);
-		//ordre croissant
-		if(strcmp(ordre,"croissant")==0)
-		    for(i=0;i<taille;i++){
-			    for(j=0;j<taille-i-1;j++){
-				    if(A[j].date.annee>A[j+1].date.annee){
-				        tache echang;
-					    echang=A[j+1];
-					    A[j+1]=A[j];
-					    A[j]=echang;
-						} 
-				    else if(A[j].date.annee==A[j+1].date.annee){
-				            if(A[j].date.mois>A[j+1].date.mois){
-				            	    tache echang;
-					                echang=A[j+1];
-					                A[j+1]=A[j];
-					                A[j]=echang;
-								    } 
-							else if(A[j].date.mois==A[j+1].date.mois){
-								    if(A[j].date.jour>A[j+1].date.jour){
-				            	        tache echang;
-					                    echang=A[j+1];
-					                    A[j+1]=A[j];
-					                    A[j]=echang;
-								        } 
-			                    	}
-				
-		                    	}
-		                   }
-                     	} 
-        //ordre decroissant             	
-        if(strcmp(ordre,"decroissant")==0)  
-         for(i=0;i<taille;i++){
-			        for(j=0;j<taille-i-1;j++){
-				        if(A[j].date.annee<A[j+1].date.annee){
-				            tache echang;
-					        echang=A[j+1];
-					        A[j+1]=A[j];
-					        A[j]=echang;
-							} 
-				            else if(A[j].date.annee==A[j+1].date.annee){
-				            	if(A[j].date.mois<A[j+1].date.mois){
-				            	    tache echang;
-					                echang=A[j+1];
-					                A[j+1]=A[j];
-					                A[j]=echang;
-								    } 
-								    else if(A[j].date.mois==A[j+1].date.mois){
-								    	if(A[j].date.jour<A[j+1].date.jour){
-				            	        tache echang;
-					                    echang=A[j+1];
-					                    A[j+1]=A[j];
-					                    A[j]=echang;
-								        } 
-					
-			                    	}
-				
-		                    	}
-		                   }
-                     	} 
-                    }
-		                
+   
 int main(){	
 //la variable p indique le choix de l'utilisateur
     int p;
@@ -216,8 +148,7 @@ int main(){
         printf("3-MODIFIER_UNE_TACHE\n");
         printf("4-SUPPRIMER_UNE_TACHE\n");
         printf("5-FILTRER_LES_TACHE\n");
-        printf("6-TRIER_LES_TACHE\n");
-        printf("7-QUITTER\n");
+        printf("6-QUITTER\n");
         printf("Enter votre choix : ");
         scanf("%d",&p);
         switch(p){
@@ -232,10 +163,9 @@ int main(){
 			case 3:MODIFIER_UNE_TACHE(); break;  
 			case 4:SUPPRIMER_UNE_TACHE(); break; 
 			case 5:FILTRER_LES_TACHES(); break; 
-			case 6:TRIER_LES_TACHES(); break;
-			case 7:break; 	
+			case 6:break; 	
         }
-    }while(p!=7);
+    }while(p!=6);
 	return 0;	
 }
 
