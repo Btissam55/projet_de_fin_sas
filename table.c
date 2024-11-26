@@ -21,10 +21,9 @@ typedef struct Date{
  //Cette fonction ajoute une tâche lorsque l'utilisateur sélectionne le choix 1
 void AJOUTER_UNE_TACHE(){
  	printf("entrez le titre de la tache : ");
- 	getchar();
- 	fgets(A[taille].titre,20,stdin);
+ 	scanf("%s",A[taille].titre);
  	printf("entrez la description de la tache : ");
-    fgets(A[taille].descrip,100,stdin);
+    scanf("%s",A[taille].descrip);
  	printf("********[Attention: la priorite prend deux valeurs <%s,%s>]********\n","high","low");
  	do{
  		printf("entrez la priorite de la tache : ");
@@ -59,7 +58,7 @@ void MODIFIER_UNE_TACHE(){
   	    AFFICHER_LA_LISTE_DES_TACHES();
   	    //choix de l'indice de la tache que tu veux modifier
   	    do{
-  	    	printf("entrez l'indice de la tache que tu veux modifier\n");
+  	    	printf("\nentrez l'indice de la tache que tu veux modifier : ");
   	        scanf("%d",&indice);
 		  }while(indice>=taille || indice<0);
       if(taille!=0) {
@@ -91,7 +90,7 @@ void MODIFIER_UNE_TACHE(){
  	                        scanf("%d %d %d",&A[indice].date.annee,&A[indice].date.mois,&A[indice].date.jour);
 	                        }while(A[indice].date.annee<annee || (A[indice].date.annee==annee && A[indice].date.mois<mois) || (A[indice].date.annee==annee && A[indice].date.mois==mois && A[indice].date.jour<jour));
 							break;
-					case 5:break;
+					case 5: break;
 						break;
 					}		
 		   }while(p!=5);
@@ -142,9 +141,9 @@ void  FILTRER_LES_TACHES(){
 	void TRIER_LES_TACHES(){
 		char ordre[20];
 		int i,j;
-		printf("Il y a deux possibilités pour trier le tableau des tâches : 1-soit par ordre croissant en saisissant 'croissant' \t2-soit par ordre décroissant en saisissant 'décroissant'");
+		printf("Il y a deux possibilites pour trier le tableau des taches : ordre croissant ou 2-ordre decroissant");
 		//le choix de l'ordre 
-		printf("entrez l'ordre\n");
+		printf("\nentrez l'ordre : ");
 		scanf("%s",ordre);
 		//ordre croissant
 		if(strcmp(ordre,"croissant")==0)
