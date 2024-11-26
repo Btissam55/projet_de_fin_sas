@@ -20,22 +20,28 @@ typedef struct Date{
  int taille=0;
  //Cette fonction ajoute une tâche lorsque l'utilisateur sélectionne le choix 1
 void AJOUTER_UNE_TACHE(){
- 	printf("entrez le titre de la tache : ");
- 	scanf("%s",A[taille].titre);
- 	printf("entrez la description de la tache : ");
-    scanf("%s",A[taille].descrip);
- 	printf("********[Attention: la priorite prend deux valeurs <%s,%s>]********\n","high","low");
- 	do{
- 		printf("entrez la priorite de la tache : ");
- 	    scanf("%s",A[taille].priorite);
-	   }while(strcmp(A[taille].priorite,"high")!=0 && strcmp(A[taille].priorite,"low")!=0);
- 	printf("Attention : vous devez planifier une tache pour une date future\n");
- 	do{
- 	printf("entrez la date : ");
- 	scanf("%d/%d/%d",&A[taille].date.annee,&A[taille].date.mois,&A[taille].date.jour);
-	  }while(A[taille].date.annee<annee || (A[taille].date.annee==annee && A[taille].date.mois<mois) || (A[taille].date.annee==annee && A[taille].date.mois==mois && A[taille].date.jour<jour));
-	 taille++;
-    }
+	// Vérifier que la liste de tâches n'est pas pleine avant d'ajouter une nouvelle tâche
+	if(taille>=50) printf("la liste des atches est pleine\n");
+	else{
+ 	    printf("entrez le titre de la tache : ");
+ 	    scanf("%s",A[taille].titre);
+ 	    printf("entrez la description de la tache : ");
+        scanf("%s",A[taille].descrip);
+ 	    printf("Attention: la priorite prend deux valeurs <%s,%s>\n","high","low");
+ 	    // Vérification que la priorité est soit 'high' soit 'low', sinon redemander la saisie
+ 	    do{
+ 		    printf("entrez la priorite de la tache : ");
+ 	        scanf("%s",A[taille].priorite);
+	    }while(strcmp(A[taille].priorite,"high")!=0 && strcmp(A[taille].priorite,"low")!=0);
+      	printf("Attention : vous devez planifier une tache pour une date future\n");
+ 	    // Vérification que la date saisie est dans le futur par rapport à la date actuelle
+ 	    do{
+ 	         printf("entrez la date : ");
+ 	         scanf("%d/%d/%d",&A[taille].date.annee,&A[taille].date.mois,&A[taille].date.jour);
+	    }while(A[taille].date.annee<annee || (A[taille].date.annee==annee && A[taille].date.mois<mois) || (A[taille].date.annee==annee && A[taille].date.mois==mois && A[taille].date.jour<jour) || (A[taille].date.mois>12 || A[taille].date.mois<0) || (A[taille].date.jour<1 || A[taille].date.jour>31) || A[taille].date.annee<2024);
+	    taille++;// Incrémenter la taille après avoir ajouté la tâche
+       }
+   }
 // Cette fonction affiche les tâches stockes dans la table A(le choix 2).
 void  AFFICHER_LA_LISTE_DES_TACHES(){
   	int i;
@@ -62,6 +68,7 @@ void MODIFIER_UNE_TACHE(){
   	        scanf("%d",&indice);
 		  }while(indice>=taille || indice<0);
       if(taille!=0) {
+      	// Menu pour modifier différents attributs de la tâche d'indice donné
       	do{
       	 printf("\n    <MENU DE MODIFICATION>   \n");
   	        printf("1 : modifier le titre\n");
@@ -72,26 +79,30 @@ void MODIFIER_UNE_TACHE(){
   	        printf("Enter votre choix : ");
             scanf("%d",&p);
   	        switch(p){
-  	    	        case 1:printf("entrez le nouveau titre de la tache\n");
- 	                       scanf("%s",A[taille].titre);
+  	    	        case 1:// Modifier le titre de la tâche
+					        printf("entrez le nouveau titre de la tache\n");
+ 	                       scanf("%s",A[indice].titre);
 				           break;
-			        case 2:printf("entrez la nouvelle description de la tache\n");
-			               scanf("%s",A[taille].descrip);
+			        case 2:// Modifier la description de la tâche
+					       printf("entrez la nouvelle description de la tache\n");
+			               scanf("%s",A[indice].descrip);
 				           break;  
-			    	case 3: printf("Attention: la priorite prend deux valeurs <%s,%s>\n","high","low");
+			    	case 3: // Modifier la priorité en vérifiant qu'elle est correcte
+					        printf("Attention: la priorite prend deux valeurs <%s,%s>\n","high","low");
  	                        do{
  		                    printf("entrez la priorite de la tache : ");
  	                        scanf("%s",A[indice].priorite);
 	                        }while(strcmp(A[indice].priorite,"high")!=0 && strcmp(A[indice].priorite,"low")!=0);
 	                        break;
-				    case 4:	printf("Attention : il faut planifier une tache au futur si vous ne respectez pas la date le saise sera afficher une autre fois\n");
+				    case 4:	// Modifier la date en s'assurant qu'elle est future
+					        printf("Attention : il faut planifier une tache au futur si vous ne respectez pas la date le saise sera afficher une autre fois\n");
  	                        do{
  	                        printf("entrez la date\n");
  	                        scanf("%d %d %d",&A[indice].date.annee,&A[indice].date.mois,&A[indice].date.jour);
-	                        }while(A[indice].date.annee<annee || (A[indice].date.annee==annee && A[indice].date.mois<mois) || (A[indice].date.annee==annee && A[indice].date.mois==mois && A[indice].date.jour<jour));
+	                        }while(A[indice].date.annee<annee || (A[indice].date.annee==annee && A[indice].date.mois<mois) || (A[indice].date.annee==annee && A[indice].date.mois==mois && A[indice].date.jour<jour) || (A[indice].date.mois>12 || A[indice].date.mois<0) || (A[indice].date.jour<1 || A[indice].date.jour>31) || A[indice].date.annee < 2024 );
 							break;
-					case 5: break;
-						break;
+					case 5: // Quitter le menu de modification
+					        break;
 					}		
 		   }while(p!=5);
 		  }
@@ -118,7 +129,7 @@ void  FILTRER_LES_TACHES(){
 		char priorite[6];
 		int i;
 		printf("Attention: la priorite prend deux valeurs [%s,%s]\n","high","low");
-		//La lecture de la priorité que l'utilisateur souhaite
+		//L'utilisateur doit choisir entre les deux priorités disponibles ('high' ou 'low')
      	do{
  	    	printf("entrez la priorite de la tache : ");
  	        scanf("%s",priorite);
@@ -157,7 +168,7 @@ int main(){
             		printf("entrez la date d'aujourd'hui en respectant les conditions suivantes (1=<mois<=12) et (1=<jour<=31) : ");
 			    	scanf("%d/%d/%d",&annee,&mois,&jour);
 			    	
-		            } while((mois>12 || mois<0) || (jour<1 || jour>31 )); AJOUTER_UNE_TACHE(); break;
+		            } while((mois>12 || mois<0) || (jour<1 || jour>31 ) || annee<2024); AJOUTER_UNE_TACHE(); break;
 		    
 		    case 2:AFFICHER_LA_LISTE_DES_TACHES(); break;
 			case 3:MODIFIER_UNE_TACHE(); break;  
